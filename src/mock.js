@@ -2,14 +2,13 @@
 
 // mock implementation
 
-const
-    grpc = require('grpc'),
-    mb = require('./mountebank/request'),
-    client = require('./grpc/client'),
-    server = require('./grpc/server'),
-    service = require('./grpc/service'),
-    log = require('./helpers/logging').logger();
-
+const grpc = require('grpc')
+const mb = require('./mountebank/request')
+const client = require('./grpc/client')
+const server = require('./grpc/server')
+const service = require('./grpc/service')
+const log = require('./helpers/logging').logger();
+const { ProtoError } = require('./helpers/errors')
 
 const getServerInstance = (config) => {
     const
@@ -30,11 +29,19 @@ const getServerInstance = (config) => {
         protobufjsOptions.includeDirs = Object.values(protobufjsOptions.includeDirs);
     }
     Object.entries(config.services).forEach(([key, value]) => {
-        const
-            serviceOptions = {service: key, file: value.file},
-            serviceDefinition = service.getServiceDefinition(serviceOptions, protobufjsOptions),
-            clientDefinition = service.getClientDefinition(serviceOptions, protobufjsOptions),
-            implementation = createImplementation(mbOptions, serviceDefinition, clientDefinition);
+        const serviceOptions = {service: key, file: value.file}
+
+        let serviceDefinition
+        let clientDefinition
+        try {
+            serviceDefinition = service.getServiceDefinition(serviceOptions, protobufjsOptions)
+            clientDefinition = service.getClientDefinition(serviceOptions, protobufjsOptions)
+        } catch (error) {
+            throw new ProtoError(serviceOptions.file, error.message)
+        }
+
+        const implementation = createImplementation(mbOptions, serviceDefinition, clientDefinition)
+        
         server.addService(serviceDefinition, implementation);
     })
 

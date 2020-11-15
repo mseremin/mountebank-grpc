@@ -1,8 +1,8 @@
 // handling mountebank requests
 
 
-const axios = require('axios'),
-    log = require('../helpers/logging').logger();
+const axios = require('axios')
+const log = require('../helpers/logging').logger();
 
 
 const sendRequest = async (url, data) => {

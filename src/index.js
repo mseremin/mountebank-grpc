@@ -1,13 +1,12 @@
 'use strict'
 
 // main entry point
-const
-    constants = require('./constants'),
-    grpc = require('grpc'),
-    mock = require('./mock'),
-    logging = require('./helpers/logging'),
-    log = logging.logger(),
-    net = require('net');
+const constants = require('./constants')
+const grpc = require('grpc')
+const mock = require('./mock')
+const logging = require('./helpers/logging')
+const log = logging.logger()
+const net = require('net')
 
 
 const main = () => {
@@ -31,7 +30,7 @@ const main = () => {
                 'encoding': 'utf8',
                 'services': config.services
             }
-            console.log(JSON.stringify(metadata));
+            log.debug(JSON.stringify(metadata));
             log.info(`server started on port '%s'`, port);
         });
     });
