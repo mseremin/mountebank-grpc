@@ -6,20 +6,16 @@ This makes use of nodejs and the google-protobuf and @grpc/proto-loader modules 
 
 ## Setup
 
-Clone project:
+Install project:
 
-    git clone git@github.com:cbrz/mountebank-grpc.git
-
-Build project:
-
-    npm install
+    npm install @ozonru/mountebank-grpc
 
 Create protocols.json file for gRPC:
 
 ```json
 {
     "grpc": {
-        "createCommand": "node <PROJECT_PATH>/mountebank-grpc/src/index.js"
+        "createCommand": "mb-grpc"
     }
 }
 ```
