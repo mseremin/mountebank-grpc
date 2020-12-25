@@ -2,9 +2,9 @@
 
 // mock calls for grpc
 
-const grpc = require('grpc'),
-    transform = require('./transform'),
-    metadata = require('./metadata');
+const grpc = require('grpc')
+const transform = require('./transform')
+const metadata = require('./metadata')
 
 
 const createRequest = () => {
@@ -55,22 +55,23 @@ const getStreamRequest = (call) => {
 
 const sendUnaryResponse = (response, call, callback) => {
     const t = (d) => transform.bufferToBase64(d);
-    const error = t(response.error),
-        value = t(response.value),
-        md = t(response.metadata);
-
+    const error = t(response.error)
+    const value = t(response.value)
+    const md = t(response.metadata)
+    const mtd = (md && md.trailing) ? metadata.mapToMetadata(md.trailing) : new grpc.Metadata()
+    
     if (md && md.initial) {
         call.sendMetadata(metadata.mapToMetadata(md.initial));
     }
 
     if (error) {
-        callback({
+        return callback({
             code: grpc.status[error.status || 'INTERNAL'],
             message: error.message || 'error message',
-            metadata: (md && md.trailing) ? metadata.mapToMetadata(md.trailing) : undefined
+            metadata: mtd
         });
     } else {
-        callback(null, value, (md && md.trailing) ? metadata.mapToMetadata(md.trailing) : undefined);
+        return callback(null, value, mtd);
     }
 };
 

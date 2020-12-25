@@ -1,7 +1,6 @@
-const
-    events = require('events'),
-    server = require('../server');
-
+const events = require('events')
+const server = require('../server')
+const grpc = require('grpc')
 
 describe('server calls', () => {
     describe('get unary request', () => {
@@ -57,16 +56,17 @@ describe('server calls', () => {
 
         test('sends unary error', () => {
             const expected = {
-                    code: 13,
-                    message: 'error message'
+                code: 13,
+                message: 'error message',
+                metadata: new grpc.Metadata()
+            }
+            const request = {
+                error: {
+                    status: 'INTERNAL',
+                    message: expected.message
                 },
-                request = {
-                    error: {
-                        status: 'INTERNAL',
-                        message: expected.message
-                    },
-                    value: 'data',
-                };
+                value: 'data',
+            };
             server.sendUnaryResponse(request, call, callback);
 
             expect(callback.mock.calls.length).toBe(1);

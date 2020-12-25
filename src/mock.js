@@ -75,6 +75,13 @@ const createUnaryUnaryMockCall = (mbOptions, rpcinfo, clientDefinition) => {
         (async () => {
             const mbResponse = await mb.sendRequest(mbOptions.callbackURL, {request: request});
             let response = mbResponse.response;
+            if (!response.value) {
+                response.error = {
+                    status: 'INTERNAL',
+                    message: `Not found stub for request ${request.path}.`,
+                }
+                return server.sendUnaryResponse(response, call, callback);
+            }
             if (mbResponse.proxy) {
                 const clientOptions = {
                     endpoint: mbResponse.proxy.to,
