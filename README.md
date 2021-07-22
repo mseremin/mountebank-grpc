@@ -8,7 +8,7 @@ This makes use of nodejs and the google-protobuf and @grpc/proto-loader modules 
 
 Install project:
 
-    npm install @ozonru/mountebank-grpc
+    npm install mountebank-grpc-mts
 
 Create protocols.json file for gRPC:
 

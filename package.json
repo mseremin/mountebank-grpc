@@ -1,6 +1,6 @@
 {
-  "name": "@ozonru/mountebank-grpc",
-  "version": "0.2.2",
+  "name": "mountebank-grpc-mts",
+  "version": "0.2.3",
   "description": "gRPC client for mountebank",
   "main": "src/index.js",
   "bin": {
