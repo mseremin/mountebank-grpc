@@ -85,7 +85,6 @@ const sendStreamStreamCall = (clientOptions, request) => {
         call.on('metadata', (metadata) => handleMetadata(metadata, response));
         call.on('status', (status) => handleStatus(status, response, resolve));
         request.value.forEach(v => call.write(v));
-        call.end(metadata.mapToMetadata(md.trailing));
     });
 };
 
