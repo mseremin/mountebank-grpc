@@ -5,6 +5,8 @@
 const grpc = require('grpc')
 const transform = require('./transform')
 const metadata = require('./metadata')
+const log = require('./helpers/logging').logger();
+
 
 
 const createRequest = () => {
