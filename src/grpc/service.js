@@ -5,8 +5,6 @@
 const
     grpc = require('grpc'),
     protoLoader = require('@grpc/proto-loader');
-    log = require('./helpers/logging').logger();
-
 
 
 

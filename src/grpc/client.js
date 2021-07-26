@@ -4,7 +4,8 @@ const
     grpc = require('grpc'),
     transform = require('./transform'),
     metadata = require('./metadata'),
-    log = require('../helpers/logging').logger();
+    
+const log = require('../helpers/logging').logger();
 
 
 const createResponse = () => {
