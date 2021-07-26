@@ -4,7 +4,8 @@ const
     grpc = require('grpc'),
     transform = require('./transform'),
     metadata = require('./metadata'),
-    log = require('../helpers/logging').logger();
+    
+const log = require('../helpers/logging').logger();
 
 
 const createResponse = () => {
@@ -73,6 +74,7 @@ const sendStreamUnaryCall = (clientOptions, request) => {
 
 
 const sendStreamStreamCall = (clientOptions, request) => {
+    log.info("sendStreamStreamCall");
     const client = new clientOptions.clientDefinition(
             clientOptions.endpoint, grpc.credentials.createInsecure()
         ),
