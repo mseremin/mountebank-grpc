@@ -164,6 +164,7 @@ const createStreamStreamMockCall = (mbOptions, rpcinfo, clientDefinition) => {
                 await mb.sendRequest(mbResponse.callbackURL, {proxyResponse: response});
             }
             server.sendStreamResponse(response, call);
+        
         })();
     }
 }
