@@ -147,7 +147,9 @@ const createStreamUnaryMockCall = (mbOptions, rpcinfo, clientDefinition) => {
 
 
 const createStreamStreamMockCall = (mbOptions, rpcinfo, clientDefinition) => {
+    log.info("createStreamStreamMockCall")
     return (call) => {
+        log.info('sending stream-stream rpc');
         const request = server.getStreamRequest(call);
         request.path = rpcinfo.path;
         (async () => {

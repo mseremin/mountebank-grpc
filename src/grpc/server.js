@@ -36,6 +36,7 @@ const getUnaryRequest = (call) => {
 
 
 const getStreamRequest = (call) => {
+    log.info("getStreamRequest");
     const t = (d) => transform.bufferToBase64(d);
     const request = createRequest();
     request.peer = call.getPeer();
@@ -77,6 +78,7 @@ const sendUnaryResponse = (response, call, callback) => {
 
 
 const sendStreamResponse = (response, call) => {
+    log.info("sendStreamResponse");
     const t = (d) => transform.bufferToBase64(d);
     const error = t(response.error),
         value = t(response.value) || [],
@@ -96,10 +98,7 @@ const sendStreamResponse = (response, call) => {
     } else {
         value.forEach(v => call.write(v));
     }
-    if (md.trailing) {
-        call.end((md && md.trailing) ? metadata.mapToMetadata(md.trailing) : undefined);
-    }
-
+    call.end((md && md.trailing) ? metadata.mapToMetadata(md.trailing) : undefined);
 
 };
 
