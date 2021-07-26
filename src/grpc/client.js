@@ -73,7 +73,6 @@ const sendStreamUnaryCall = (clientOptions, request) => {
 
 
 const sendStreamStreamCall = (clientOptions, request) => {
-    log.info("sendStreamStreamCall");
     const client = new clientOptions.clientDefinition(
             clientOptions.endpoint, grpc.credentials.createInsecure()
         ),
