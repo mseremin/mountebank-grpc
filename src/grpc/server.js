@@ -92,6 +92,7 @@ const sendStreamResponse = (response, call) => {
             message: error.message || 'error message',
             metadata: (md && md.trailing) ? metadata.mapToMetadata(md.trailing) : undefined
         });
+        call.end((md && md.trailing) ? metadata.mapToMetadata(md.trailing) : undefined);
         return;
     } else {
         value.forEach(v => call.write(v));
