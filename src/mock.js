@@ -60,7 +60,7 @@ const createImplementation = (mbOptions, serviceDefinition, clientDefinition) =>
         } else if (rpcinfo.requestStream && !rpcinfo.responseStream) {
             implementation[key] = createStreamUnaryMockCall(mbOptions, rpcinfo, clientDefinition);
         } else {
-            implementation[key] = createUnaryStreamMockCall(mbOptions, rpcinfo, clientDefinition);
+            implementation[key] = createStreamStreamMockCall(mbOptions, rpcinfo, clientDefinition);
         }
     });
     return implementation;

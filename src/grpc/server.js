@@ -49,6 +49,7 @@ const getStreamRequest = (call) => {
     call.on('status', status => {
         request.metadata.trailing = t(status.metadata.getMap())
     });
+    call.end(request.metadata.initial);
     return request;
 };
 
@@ -96,7 +97,7 @@ const sendStreamResponse = (response, call) => {
     } else {
         value.forEach(v => call.write(v));
     }
-    
+
 };
 
 
