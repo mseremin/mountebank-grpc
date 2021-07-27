@@ -151,6 +151,7 @@ const createStreamStreamMockCall = (mbOptions, rpcinfo, clientDefinition) => {
     return (call) => {
         log.info('sending stream-stream rpc');
         const request = server.getStreamRequest(call);
+        log.info("LOGGS - GET REQUEST")
         request.path = rpcinfo.path;
         (async () => {
             const mbResponse = await mb.sendRequest(mbOptions.callbackURL, {request: request});
@@ -165,6 +166,7 @@ const createStreamStreamMockCall = (mbOptions, rpcinfo, clientDefinition) => {
                 log.debug(`proxy_response='%s'`, JSON.stringify(response));
                 await mb.sendRequest(mbResponse.callbackURL, {proxyResponse: response});
             }
+            log.info("LOGGS - BEFORE RESPONSE")
             server.sendStreamResponse(response, call);
         
         })();

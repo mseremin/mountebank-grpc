@@ -5,6 +5,7 @@
 const grpc = require('grpc')
 const transform = require('./transform')
 const metadata = require('./metadata')
+const log = require('../helpers/logging').logger();
 
 
 const createRequest = () => {
@@ -36,19 +37,25 @@ const getUnaryRequest = (call) => {
 
 
 const getStreamRequest = (call) => {
+    log.info("LOGGS - 1")
     const t = (d) => transform.bufferToBase64(d);
     const request = createRequest();
     request.peer = call.getPeer();
     request.canceled = call.canceled;
     request.metadata.initial = t(call.metadata.getMap());
     let value = [];
+    log.info("LOGGS - 2")
     call.on('data', message => {
         value.push(message);
+        log.info("LOGGS - 3")
     });
+    log.info("LOGGS - 4")
     request.value = t(value);
     call.on('status', status => {
         request.metadata.trailing = t(status.metadata.getMap())
+        log.info("LOGGS - 5")
     });
+    log.info("LOGGS - 6")
     return request;
 };
 
@@ -95,8 +102,9 @@ const sendStreamResponse = (response, call) => {
         return;
     } else {
         value.forEach(v => call.write(v));
+        log.info("LOGGS - 7")
     }
-    call.end(metadata.mapToMetadata(md.trailing));
+    
 
 };
 
