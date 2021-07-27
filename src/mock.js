@@ -168,7 +168,6 @@ const createStreamStreamMockCall = (mbOptions, rpcinfo, clientDefinition) => {
             server.sendStreamResponse(response, call);
         
         })();
-        call.end();
     }
 
 }
