@@ -94,9 +94,9 @@ const sendStreamResponse = (response, call) => {
         });
         return;
     } else {
-        call.request.forEach(x => call.emit())
         value.forEach(v => call.write(v));
     }
+    call.emit()
 
 };
 
