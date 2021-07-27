@@ -118,6 +118,7 @@ const createUnaryStreamMockCall = (mbOptions, rpcinfo, clientDefinition) => {
             }
             server.sendStreamResponse(response, call);
         })();
+        
     }
 }
 
@@ -148,6 +149,7 @@ const createStreamUnaryMockCall = (mbOptions, rpcinfo, clientDefinition) => {
 
 const createStreamStreamMockCall = (mbOptions, rpcinfo, clientDefinition) => {
     return (call) => {
+        log.info('sending stream-stream rpc');
         const request = server.getStreamRequest(call);
         request.path = rpcinfo.path;
         (async () => {
@@ -166,7 +168,9 @@ const createStreamStreamMockCall = (mbOptions, rpcinfo, clientDefinition) => {
             server.sendStreamResponse(response, call);
         
         })();
+        call.end();
     }
+
 }
 
 
