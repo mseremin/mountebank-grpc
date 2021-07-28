@@ -128,7 +128,7 @@ const createStreamUnaryMockCall = (mbOptions, rpcinfo, clientDefinition) => {
         log.info('sending stream-unary rpc');
         //const request = server.getStreamRequest(call);
         (async () => {
-            const request = await getStreamRequest(call);
+            const request = await server.getStreamRequest(call);
             request.path = rpcinfo.path;
             const mbResponse = await mb.sendRequest(mbOptions.callbackURL, {request: request});
             let response = mbResponse.response;
@@ -153,7 +153,7 @@ const createStreamStreamMockCall = (mbOptions, rpcinfo, clientDefinition) => {
         log.info('sending stream-stream rpc');
         //const request = server.getStreamRequest(call);
         (async () => {
-            const request = await getStreamRequest(call);
+            const request = await server.getStreamRequest(call);
             request.path = rpcinfo.path;
             const mbResponse = await mb.sendRequest(mbOptions.callbackURL, {request: request});
             let response = mbResponse.response;
