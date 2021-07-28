@@ -36,7 +36,7 @@ const getUnaryRequest = (call) => {
 };
 
 
-const getStreamRequest = (call) => {
+const getStreamRequest1 = (call) => {
     const t = (d) => transform.bufferToBase64(d);
     const request = createRequest();
     request.peer = call.getPeer();
@@ -63,6 +63,24 @@ const getStreamRequest = (call) => {
     });
     log.info("request.value before return = ".concat(request.value))
     return request;
+};
+
+const getStreamRequest = (call) => {
+    const t = (d) => transform.bufferToBase64(d);
+    const request = createRequest();
+    request.peer = call.getPeer();
+    request.canceled = call.canceled;
+    request.metadata.initial = t(call.metadata.getMap());
+    return new Promise((resolve) => {
+        call.on('data', (data) => {
+            request.value = t(data);
+            console.log("--------- LOGG getStreamRequest ---------", request.value);
+            resolve(request);
+        });
+        call.on('status', status => {
+            request.metadata.trailing = t(status.metadata.getMap())
+        });
+    });
 };
 
 
