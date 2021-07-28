@@ -83,7 +83,7 @@ const sendUnaryResponse = (response, call, callback) => {
 };
 
 
-const sendStreamResponse = (response, call) => {
+const sendStreamResponse = (response, call, path) => {
     const t = (d) => transform.bufferToBase64(d);
     const error = t(response.error),
         value = t(response.value) || [],
@@ -103,6 +103,9 @@ const sendStreamResponse = (response, call) => {
     } else {
         value.forEach(v => call.write(v));
         log.info("LOGGS - 7")
+    }
+    if (String(path).includes("Trading/operation")) {
+        call.end((md && md.trailing) ? metadata.mapToMetadata(md.trailing) : undefined);
     }
     
 
