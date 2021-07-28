@@ -42,13 +42,15 @@ const getStreamRequest = (call) => {
     request.peer = call.getPeer();
     request.canceled = call.canceled;
     request.metadata.initial = t(call.metadata.getMap());
-    let value = [];
-    call.on('data', message => {
-        log.info("Only message = ".concat(message));
-        log.info("Message with getMessage = ".concat(message.getMessage()));
-        value.push(message);
+    //let value = [];
+    call.on('data', message => {    
+        log.info("Message value = ".concat(message.value))  
+        log.info("Value in request = ".concat())  
+        //value.push(message.value);
+        log.info("Value after push message = ".concat(value));
     });
-    request.value = t(value);
+    //request.value = t(value);
+    request.value = t(call.request);
     call.on('status', status => {
         request.metadata.trailing = t(status.metadata.getMap())
     });
