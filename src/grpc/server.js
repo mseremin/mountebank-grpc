@@ -35,36 +35,6 @@ const getUnaryRequest = (call) => {
     return request;
 };
 
-
-const getStreamRequest1 = (call) => {
-    const t = (d) => transform.bufferToBase64(d);
-    const request = createRequest();
-    request.peer = call.getPeer();
-    request.canceled = call.canceled;
-    request.metadata.initial = t(call.metadata.getMap());
-    let value = [];
-    
-    call.on('data', (data) => {
-        value.push(data);
-        console.log(data)
-    });
-
-    request.value = t(value);
-
-    // call.on('data', (data) => {
-    //     value.push(data);
-    //     log.info("request.data = ".concat(JSON.stringify(data)));
-    //     request.value = value;
-    //     log.info("request.value = ".concat(request.value))
-    // });
-    
-    call.on('status', status => {
-        request.metadata.trailing = t(status.metadata.getMap())
-    });
-    log.info("request.value before return = ".concat(request.value))
-    return request;
-};
-
 const getStreamRequest = (call) => {
     const t = (d) => transform.bufferToBase64(d);
     const request = createRequest();
@@ -74,7 +44,6 @@ const getStreamRequest = (call) => {
     return new Promise((resolve) => {
         call.on('data', (data) => {
             request.value = t(data);
-            console.log("--------- LOGG getStreamRequest ---------", request.value);
             resolve(request);
         });
         call.on('status', status => {
