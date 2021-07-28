@@ -43,9 +43,9 @@ const getStreamRequest = (call) => {
     request.canceled = call.canceled;
     request.metadata.initial = t(call.metadata.getMap());
     let value = [];
-    call.on('data', data => {    
+    call.on('data', message => {    
         //log.info("Message value = ".concat(message.value))  
-        value.push(JSON.parse(JSON.stringify(data)));
+        value.push(message);
         log.info("Value after push message = ".concat(value));
     });
     request.value = t(value);
@@ -101,10 +101,9 @@ const sendStreamResponse = (response, call, path) => {
         log.info("LOGGS - 7")
     }
     log.info("PATH = ".concat(path))
-    if (!String(path).includes("Trading") && !String(path).includes("BrokerPortfolioService/getStreamV2")) {
+    //if (!String(path).includes("Trading") && !String(path).includes("BrokerPortfolioService/getStreamV2")) {
         call.end((md && md.trailing) ? metadata.mapToMetadata(md.trailing) : undefined);
-        log.info("Попали в закрытие стрима")
-    }
+    //}
     
 
 };
