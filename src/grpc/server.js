@@ -105,7 +105,7 @@ const sendStreamResponse = (response, call, path) => {
         log.info("LOGGS - 7")
     }
     log.info("PATH = ".concat(path))
-    if (!String(path).includes("Trading/watch")) {
+    if (!String(path).includes("Trading/watch") || !String(path).includes("BrokerPortfolioService/getStreamV2")) {
         call.end((md && md.trailing) ? metadata.mapToMetadata(md.trailing) : undefined);
         log.info("Попали в закрытие стрима")
     }

@@ -116,7 +116,7 @@ const createUnaryStreamMockCall = (mbOptions, rpcinfo, clientDefinition) => {
                 log.debug(`proxy_response='%s'`, JSON.stringify(response));
                 await mb.sendRequest(mbResponse.callbackURL, {proxyResponse: response});
             }
-            server.sendStreamResponse(response, call);
+            server.sendStreamResponse(response, call, request.path);
         })();
         
     }

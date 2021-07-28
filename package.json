@@ -1,6 +1,6 @@
 {
   "name": "mountebank-grpc-mts",
-  "version": "0.2.38",
+  "version": "0.2.39",
   "description": "gRPC client for mountebank",
   "main": "src/index.js",
   "bin": {
