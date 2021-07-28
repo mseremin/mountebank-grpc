@@ -42,8 +42,11 @@ const getStreamRequest = (call) => {
     request.peer = call.getPeer();
     request.canceled = call.canceled;
     request.metadata.initial = t(call.metadata.getMap());
+    let value1 = call.request;
     let value = [];
-    call.on('data', message => {    
+    log.info("CALL REQUEST VALUE: ".concat(value1))
+    log.info("CALL REQUEST VALUE with t(): ".concat(t(call.request)))
+    call.on('data', message => {
         value.push(message);
     });
     request.value = t(value);
