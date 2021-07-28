@@ -42,14 +42,9 @@ const getStreamRequest = (call) => {
     request.peer = call.getPeer();
     request.canceled = call.canceled;
     request.metadata.initial = t(call.metadata.getMap());
-    log.info("REQUEST: ".concat(t(call.request)));
     let value = [];
-    call.on('data', (data) => {    
-        //request.value = data;
-        //log.info("Message value = ".concat(message.value))  
-        call.request.forEach(v => value.push(v))
-        //value.push(data);
-        log.info("Value after push message = ".concat(value));
+    call.on('data', message => {    
+        value.push(message);
     });
     request.value = t(value);
     call.on('status', status => {
