@@ -47,7 +47,7 @@ const getStreamRequest = (call) => {
         log.info("Message value = ".concat(message.value))  
         log.info("Value in request = ".concat())  
         //value.push(message.value);
-        log.info("Value after push message = ".concat(value));
+        //log.info("Value after push message = ".concat(value));
     });
     //request.value = t(value);
     request.value = t(call.request);
