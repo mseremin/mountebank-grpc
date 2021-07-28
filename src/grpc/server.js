@@ -44,8 +44,9 @@ const getStreamRequest = (call) => {
     request.metadata.initial = t(call.metadata.getMap());
     let value = [];
     call.on('data', (data) => {    
+        //request.value = data;
         //log.info("Message value = ".concat(message.value))  
-        data.forEach(v => value.push(v));
+        call.request.value.forEach(v => value.push(v))
         //value.push(data);
         log.info("Value after push message = ".concat(value));
     });
