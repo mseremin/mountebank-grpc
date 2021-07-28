@@ -43,10 +43,9 @@ const getStreamRequest = (call) => {
     request.canceled = call.canceled;
     request.metadata.initial = t(call.metadata.getMap());
     let value = [];
-    log.info("CALL = ".concat(call))
     call.on('data', data => {    
         //log.info("Message value = ".concat(message.value))  
-        value.push(data);
+        value.push(JSON.parse(JSON.stringify(data)));
         log.info("Value after push message = ".concat(value));
     });
     request.value = t(value);
