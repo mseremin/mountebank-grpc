@@ -43,16 +43,25 @@ const getStreamRequest = (call) => {
     request.canceled = call.canceled;
     request.metadata.initial = t(call.metadata.getMap());
     let value = [];
+    
     call.on('data', (data) => {
         value.push(data);
-        log.info("request.data = ".concat(JSON.stringify(data)));
-        request.value = value;
-        log.info("request.value = ".concat(request.value))
+        console.log(data)
     });
+
+    request.value = t(value);
+
+    // call.on('data', (data) => {
+    //     value.push(data);
+    //     log.info("request.data = ".concat(JSON.stringify(data)));
+    //     request.value = value;
+    //     log.info("request.value = ".concat(request.value))
+    // });
     
     call.on('status', status => {
         request.metadata.trailing = t(status.metadata.getMap())
     });
+    log.info("request.value before return = ".concat(request.value))
     return request;
 };
 
