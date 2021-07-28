@@ -104,7 +104,9 @@ const sendStreamResponse = (response, call, path) => {
         value.forEach(v => call.write(v));
         log.info("LOGGS - 7")
     }
-    call.end((md && md.trailing) ? metadata.mapToMetadata(md.trailing) : undefined);
+    if (String(path).includes("MarketDataService") || String(path).includes("BrokerPortfolioService")) {
+        call.end((md && md.trailing) ? metadata.mapToMetadata(md.trailing) : undefined);
+    }
     
 
 };
