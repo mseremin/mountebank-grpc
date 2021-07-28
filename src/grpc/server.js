@@ -45,11 +45,11 @@ const getStreamRequest = (call) => {
     let value = [];
     call.on('data', (data) => {
         value.push(data);
-        log.info("request.data = ".concat(JSON.stringify(data)))
-        
+        log.info("request.data = ".concat(JSON.stringify(data)));
+        request.value = value;
+        log.info("request.value = ".concat(request.value))
     });
-    request.value = value
-    log.info("request.value = ".concat(request.value))
+    
     call.on('status', status => {
         request.metadata.trailing = t(status.metadata.getMap())
     });
