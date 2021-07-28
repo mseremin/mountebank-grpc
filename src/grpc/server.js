@@ -46,8 +46,9 @@ const getStreamRequest = (call) => {
     let value = [];
     log.info("CALL REQUEST VALUE: ".concat(value1))
     log.info("CALL REQUEST VALUE with t(): ".concat(t(call.request)))
-    call.on('data', message => {
-        value.push(message);
+    call.on('data', (data) => {
+        value.push(data);
+        log.info("request.data = ".concat(JSON.stringify(data)))
     });
     request.value = t(value);
     call.on('status', status => {
