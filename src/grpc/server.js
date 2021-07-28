@@ -104,9 +104,7 @@ const sendStreamResponse = (response, call, path) => {
         value.forEach(v => call.write(v));
         log.info("LOGGS - 7")
     }
-    if (String(path).includes("Trading/watch")) {
-        call.end((md && md.trailing) ? metadata.mapToMetadata(md.trailing) : undefined);
-    }
+    call.end((md && md.trailing) ? metadata.mapToMetadata(md.trailing) : undefined);
     
 
 };
