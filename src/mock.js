@@ -175,7 +175,7 @@ const createUnaryStreamMockCall = (mbOptions, rpcinfo, clientDefinition) => {
 const createStreamStreamMockCall = (mbOptions, rpcinfo, clientDefinition) => {
     return (call) => {
         log.info('sending stream-stream rpc');
-        const request = createRequest();
+        const request = server.createRequest();
         request.peer = call.getPeer();
         request.canceled = call.canceled;
         request.path = rpcinfo.path;
@@ -189,7 +189,7 @@ const createStreamStreamMockCall = (mbOptions, rpcinfo, clientDefinition) => {
 const createStreamUnaryMockCall = (mbOptions, rpcinfo, clientDefinition) => {
     return (call, callback) => {
         log.info('sending stream-unary rpc');
-        const request = createRequest();
+        const request = server.createRequest();
         request.peer = call.getPeer();
         request.canceled = call.canceled;
         request.path = rpcinfo.path;

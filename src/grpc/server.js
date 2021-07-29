@@ -110,4 +110,5 @@ module.exports = {
     getUnaryRequest,
     sendStreamResponse,
     sendUnaryResponse,
+    createRequest
 }
