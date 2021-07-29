@@ -9,7 +9,7 @@ const server = require('./grpc/server')
 const service = require('./grpc/service')
 const log = require('./helpers/logging').logger();
 const { ProtoError } = require('./helpers/errors')
-const transform = require('./transform')
+const transform = require('./grpc/transform')
 
 const getServerInstance = (config) => {
     const
