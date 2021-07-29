@@ -94,7 +94,9 @@ const sendStreamResponse = (response, call, path) => {
         });
         return;
     } else {
-        value.forEach(v => call.write(v));
+        call.on("data", (data) => {
+            value.forEach(v => call.write(v));
+        })
     }
     
     if (!String(path).includes("Trading") && !String(path).includes("BrokerPortfolioService/getStreamV2")) {
