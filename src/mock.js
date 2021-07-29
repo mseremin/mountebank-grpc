@@ -9,6 +9,7 @@ const server = require('./grpc/server')
 const service = require('./grpc/service')
 const log = require('./helpers/logging').logger();
 const { ProtoError } = require('./helpers/errors')
+const transform = require('./transform')
 
 const getServerInstance = (config) => {
     const
@@ -180,7 +181,7 @@ const createStreamStreamMockCall = (mbOptions, rpcinfo, clientDefinition) => {
         request.canceled = call.canceled;
         request.path = rpcinfo.path;
         call.on('data', async (data) => {
-            request.value = t(data);
+            request.value = transform.bufferToBase64(data);
             const mbResponse = await mb.sendRequest(mbOptions.callbackURL, { request });
             await server.sendStreamResponse(mbResponse.response, call, request.path);
         });
@@ -194,7 +195,7 @@ const createStreamUnaryMockCall = (mbOptions, rpcinfo, clientDefinition) => {
         request.canceled = call.canceled;
         request.path = rpcinfo.path;
         call.on('data', async (data) => {
-            request.value = t(data);
+            request.value = transform.bufferToBase64(data);
             const mbResponse = await mb.sendRequest(mbOptions.callbackURL, { request });
             await server.sendUnaryResponse(mbOptions.response, call, callback);
         });
