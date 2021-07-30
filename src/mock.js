@@ -180,6 +180,7 @@ const createStreamStreamMockCall = (mbOptions, rpcinfo, clientDefinition) => {
         request.peer = call.getPeer();
         request.canceled = call.canceled;
         request.path = rpcinfo.path;
+        request.metadata.initial = t(call.metadata.getMap());
         call.on('data', async (data) => {
             request.value = transform.bufferToBase64(data);
             const mbResponse = await mb.sendRequest(mbOptions.callbackURL, { request });
@@ -194,6 +195,7 @@ const createStreamUnaryMockCall = (mbOptions, rpcinfo, clientDefinition) => {
         request.peer = call.getPeer();
         request.canceled = call.canceled;
         request.path = rpcinfo.path;
+        request.metadata.initial = t(call.metadata.getMap());
         call.on('data', async (data) => {
             request.value = transform.bufferToBase64(data);
             const mbResponse = await mb.sendRequest(mbOptions.callbackURL, { request });
