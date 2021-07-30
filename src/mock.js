@@ -181,7 +181,9 @@ const createStreamStreamMockCall = (mbOptions, rpcinfo, clientDefinition) => {
         request.canceled = call.canceled;
         request.path = rpcinfo.path;
         request.metadata.initial = transform.bufferToBase64(call.metadata.getMap());
-        request.metadata.trailing = transform.bufferToBase64(status.metadata.getMap())
+        call.on('status', status => {
+            request.metadata.trailing = transform.bufferToBase64(status.metadata.getMap())
+        });        
         call.on('data', async (data) => {
             request.value = transform.bufferToBase64(data);
             const mbResponse = await mb.sendRequest(mbOptions.callbackURL, { request });
@@ -197,7 +199,9 @@ const createStreamUnaryMockCall = (mbOptions, rpcinfo, clientDefinition) => {
         request.canceled = call.canceled;
         request.path = rpcinfo.path;
         request.metadata.initial = transform.bufferToBase64(call.metadata.getMap());
-        request.metadata.trailing = transform.bufferToBase64(status.metadata.getMap())
+        call.on('status', status => {
+            request.metadata.trailing = transform.bufferToBase64(status.metadata.getMap())
+        });
         call.on('data', async (data) => {
             request.value = transform.bufferToBase64(data);
             const mbResponse = await mb.sendRequest(mbOptions.callbackURL, { request });
