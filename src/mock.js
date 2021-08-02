@@ -174,39 +174,70 @@ const createUnaryStreamMockCall = (mbOptions, rpcinfo, clientDefinition) => {
 // }
 
 const createStreamStreamMockCall = (mbOptions, rpcinfo, clientDefinition) => {
-    return (call) => {
-        log.info('sending stream-stream rpc');
+    return async (call) => {
+        log.info('Sending stream-stream rpc: %s', rpcinfo.path);
+
         const request = server.createRequest();
         request.peer = call.getPeer();
         request.canceled = call.canceled;
         request.path = rpcinfo.path;
-        request.metadata.initial = transform.bufferToBase64(call.metadata.getMap());
-        call.on('status', status => {
-            request.metadata.trailing = transform.bufferToBase64(status.metadata.getMap())
-        });        
+
         call.on('data', async (data) => {
+            log.debug('Data incomming = %j', data);
+
             request.value = transform.bufferToBase64(data);
             const mbResponse = await mb.sendRequest(mbOptions.callbackURL, { request });
             await server.sendStreamResponse(mbResponse.response, call, request.path);
         });
+
+        call.on('status', async (data) => {
+            log.debug('Status incomming = %j', data);
+        });
+
+        call.on('error', async (data) => {
+            log.debug('Error = %j', data);
+        });
+
+        call.on('end', async (data) => {
+            log.debug('End of data');
+        });
+
+        const mbResponse = await mb.sendRequest(mbOptions.callbackURL, { request });
+        await server.sendStreamResponse(mbResponse.response, call, request.path);
     }
 }
 const createStreamUnaryMockCall = (mbOptions, rpcinfo, clientDefinition) => {
-    return (call, callback) => {
-        log.info('sending stream-unary rpc');
+    return async (call, callback) => {
+        log.info('Sending stream-unary rpc: %s', rpcinfo.path);
+
         const request = server.createRequest();
         request.peer = call.getPeer();
         request.canceled = call.canceled;
         request.path = rpcinfo.path;
-        request.metadata.initial = transform.bufferToBase64(call.metadata.getMap());
-        call.on('status', status => {
-            request.metadata.trailing = transform.bufferToBase64(status.metadata.getMap())
-        });
+
         call.on('data', async (data) => {
+            log.debug('Data incomming = %j', data);
+
             request.value = transform.bufferToBase64(data);
             const mbResponse = await mb.sendRequest(mbOptions.callbackURL, { request });
             await server.sendUnaryResponse(mbOptions.response, call, callback);
         });
+
+        call.on('status', async (data) => {
+            log.debug('Status incomming = %j', data);
+        });
+
+        call.on('error', async (data) => {
+            log.debug('Error = %j', data);
+        });
+
+        call.on('end', async (data) => {
+            log.debug('End of data');
+        });
+
+        const mbResponse = await mb.sendRequest(mbOptions.callbackURL, { request });
+        await server.sendUnaryResponse(mbOptions.response, call, callback);
+
     }
 }
 
