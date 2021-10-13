@@ -10,7 +10,7 @@ RUN ls -la /usr/local/bin
 RUN ls -la /usr/bin
 RUN ls -la /usr/local/lib/node_modules
 RUN npm cache clean -f
-RUN echo '{"grpc": {"createCommand": "node --max-old-space-size=8192 -r longjohn /usr/local/bin/mb-grpc"}}' > /protocols.json
+RUN echo '{"grpc": {"createCommand": "mb-grpc"}}' > /protocols.json
 EXPOSE 2525
 ENTRYPOINT ["mb"]
 CMD ["start", "--protofile", "/protocols.json"]

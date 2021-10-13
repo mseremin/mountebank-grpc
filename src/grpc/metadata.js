@@ -1,7 +1,6 @@
 'use strict'
 
-const grpc = require('grpc');
-
+const grpc = require('@grpc/grpc-js');
 
 module.exports = {
     mapToMetadata: (map) => {

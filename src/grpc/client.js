@@ -1,7 +1,7 @@
 'use strict'
 
 const
-    grpc = require('grpc'),
+    grpc = require('@grpc/grpc-js'),
     transform = require('./transform'),
     metadata = require('./metadata'),
     log = require('../helpers/logging').logger();
