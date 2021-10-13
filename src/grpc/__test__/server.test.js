@@ -1,6 +1,6 @@
 const events = require('events')
 const server = require('../server')
-const grpc = require('grpc')
+const grpc = require('@grpc/grpc-js');
 
 describe('server calls', () => {
     describe('get unary request', () => {

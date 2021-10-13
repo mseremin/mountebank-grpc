@@ -1,8 +1,8 @@
-jest.mock('grpc');
+jest.mock('@grpc/grpc-js');
 jest.mock('@grpc/proto-loader');
 
 const
-    grpc = require('grpc'),
+    grpc = require('@grpc/grpc-js'),
     protoLoader = require('@grpc/proto-loader'),
     service = require('../service.js'),
     options = {
