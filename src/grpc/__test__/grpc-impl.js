@@ -1,7 +1,7 @@
 'use strict'
 
 const
-    grpc = require('grpc'),
+    grpc = require('@grpc/grpc-js'),
     service = require('../service'),
     PROTO_PATH = __dirname + '../../../protos/example.proto';
 

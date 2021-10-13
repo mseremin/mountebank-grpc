@@ -3,7 +3,7 @@
 // return a grpc server with the definitions/implementations populated
 
 const
-    grpc = require('grpc'),
+    grpc = require('@grpc/grpc-js'),
     protoLoader = require('@grpc/proto-loader');
 
 
