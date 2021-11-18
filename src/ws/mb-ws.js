@@ -21,7 +21,7 @@ if (require.main === module) {
     port: mbConfig.port
   });
 
-  log.info("on init")
+  log.info("Web socket plugin started")
 
   ws.on('connection', function open(ws, request) {
     let interval = {};
@@ -103,7 +103,5 @@ if (require.main === module) {
         }
       }
     });
-
-    log.info("Web socket plugin started");
   });
 }
