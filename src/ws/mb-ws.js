@@ -31,10 +31,11 @@ if (require.main === module) {
         request: Object.assign({},
           request,
           {
-            message: data
+            message: JSON.parse(data)
           }
         )
       };
+      log.debug(JSON.stringify(wsReq))
       fetch(mbConfig.callbackURL, {
         method: 'post',
         body: JSON.stringify(wsReq), //(1)
@@ -43,7 +44,7 @@ if (require.main === module) {
         .then(response => response.json())
         .then(mbResponse => {
           if (mbResponse.proxy) {
-            let request = JSON.parse(mbResponse.request.message);
+            let request = mbResponse.request.message;
             if (request.request_id) {
               log.info("[proxy] [%1$s] <-- %2$s ", request.request_id, JSON.stringify(request))
             } else {
