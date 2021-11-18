@@ -88,7 +88,10 @@ if (require.main === module) {
               });
           } else {
             log.info("<-- " + data)
-            //todo обогощать request_id
+            request = JSON.parse(data)
+            if (request.request_id) {
+              mbResponse.response.request_id = request.request_id
+            }
 
             log.info("--> " + JSON.stringify(mbResponse.response))
             ws.send(JSON.stringify(mbResponse.response));
