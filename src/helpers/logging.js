@@ -48,7 +48,7 @@ const timestamp = () => `${new Date().toISOString()}`
 
 
 const formatMessage = (level, ...msg) => {
-    return `${level} [${timestamp()}] ${sprintfJs.sprintf(...msg)}`
+    return `${level} ${sprintfJs.sprintf(...msg)}`
 }
 
 module.exports = { logger, setLogLevel }

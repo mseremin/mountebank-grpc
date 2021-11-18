@@ -104,6 +104,6 @@ if (require.main === module) {
       }
     });
 
-    console.log("Web socket plugin started");
+    log.info("Web socket plugin started");
   });
 }
