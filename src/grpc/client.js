@@ -21,8 +21,8 @@ const createResponse = () => {
 
 const sendUnaryUnaryCall = (clientOptions, request) => {
     const client = new clientOptions.clientDefinition(
-            clientOptions.endpoint, grpc.credentials.createInsecure()
-        ),
+        clientOptions.endpoint, grpc.credentials.createInsecure()
+    ),
         md = getRequestMetadata(request),
         response = createResponse();
     return new Promise((resolve) => {
@@ -39,8 +39,8 @@ const sendUnaryUnaryCall = (clientOptions, request) => {
 
 const sendUnaryStreamCall = (clientOptions, request) => {
     const client = new clientOptions.clientDefinition(
-            clientOptions.endpoint, grpc.credentials.createInsecure()
-        ),
+        clientOptions.endpoint, grpc.credentials.createInsecure()
+    ),
         md = getRequestMetadata(request),
         response = createResponse();
     return new Promise((resolve) => {
@@ -55,8 +55,8 @@ const sendUnaryStreamCall = (clientOptions, request) => {
 
 const sendStreamUnaryCall = (clientOptions, request) => {
     const client = new clientOptions.clientDefinition(
-            clientOptions.endpoint, grpc.credentials.createInsecure()
-        ),
+        clientOptions.endpoint, grpc.credentials.createInsecure()
+    ),
         md = getRequestMetadata(request),
         response = createResponse();
     return new Promise((resolve) => {
@@ -74,8 +74,8 @@ const sendStreamUnaryCall = (clientOptions, request) => {
 
 const sendStreamStreamCall = (clientOptions, request) => {
     const client = new clientOptions.clientDefinition(
-            clientOptions.endpoint, grpc.credentials.createInsecure()
-        ),
+        clientOptions.endpoint, grpc.credentials.createInsecure()
+    ),
         md = getRequestMetadata(request),
         response = createResponse();
     return new Promise((resolve) => {
