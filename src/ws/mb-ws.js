@@ -43,7 +43,13 @@ if (require.main === module) {
         .then(response => response.json())
         .then(mbResponse => {
           if (mbResponse.proxy) {
-            log.info("[proxy] <-- " + mbResponse.request.message)
+            let request = JSON.parse(mbResponse.request.message);
+            if (request.request_id) {
+              log.info("[proxy] [%1$s] <-- %2$s ", request.request_id, JSON.stringify(request))
+            } else {
+              log.info("[proxy] <-- %s", JSON.stringify(request))
+            }
+
 
             const wsProxy = new WebSocketAsPromised(mbResponse.proxy.to, {
               createWebSocket: () => new WebSocket(mbResponse.proxy.to, {
@@ -58,13 +64,12 @@ if (require.main === module) {
               extractRequestId: data => data && data.request_id,
             });
 
-            let req = JSON.parse(mbResponse.request.message);
 
             wsProxy
               .open()
-              .then(() => wsProxy.sendRequest(req,
+              .then(() => wsProxy.sendRequest(request,
                 {
-                  requestId: req.request_id,
+                  requestId: request.request_id,
                   timeout: "1000"
                 }
               ))
@@ -77,7 +82,7 @@ if (require.main === module) {
                 })
                   .then(response => response.json())
                   .then(() => {
-                    log.info("[proxy] --> " + JSON.stringify(response))
+                    log.info("[proxy] [%1$s] --> %2$s", response.request_id, JSON.stringify(response))
                     ws.send(JSON.stringify(response))
                   })
               })
@@ -86,20 +91,23 @@ if (require.main === module) {
                 wsProxy.close()
               });
           } else {
-            log.info("<-- " + data)
-            request = JSON.parse(data)
+            let request = JSON.parse(data)
+
             if (request.request_id) {
               mbResponse.response.request_id = request.request_id
+              log.info("[%1$s] <-- %2$s", request.request_id, data)
+              log.info("[%1$s] --> %2$s", request.request_id, JSON.stringify(mbResponse.response))
+            } else {
+              log.info("<-- %s", data)
+              log.info("--> %s", JSON.stringify(mbResponse.response))
             }
-
-            log.info("--> " + JSON.stringify(mbResponse.response))
             ws.send(JSON.stringify(mbResponse.response));
           }
         });
     });
 
     ws.on('close', function close() {
-      
+
     });
   });
 }
