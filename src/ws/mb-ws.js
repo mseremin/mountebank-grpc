@@ -24,7 +24,6 @@ if (require.main === module) {
   log.info("Web socket plugin started")
 
   ws.on('connection', function open(ws, request) {
-    let interval = {};
     log.info("on connection")
     ws.on('message', function incoming(data) {
 
@@ -100,11 +99,7 @@ if (require.main === module) {
     });
 
     ws.on('close', function close() {
-      for (const runningInterval in interval) {
-        if (interval.hasOwnProperty(runningInterval)) {
-          clearInterval(interval[runningInterval]);
-        }
-      }
+      
     });
   });
 }
