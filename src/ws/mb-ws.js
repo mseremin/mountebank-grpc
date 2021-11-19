@@ -71,7 +71,7 @@ if (require.main === module) {
               .then(() => wsProxy.sendRequest(request,
                 {
                   requestId: request.request_id,
-                  timeout: "1000"
+                  timeout: "3000"
                 }
               ))
               .then(response => {
