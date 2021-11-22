@@ -51,4 +51,5 @@ const formatMessage = (level, ...msg) => {
     return `${level} ${sprintfJs.sprintf(...msg)}`
 }
 
-module.exports = { logger, setLogLevel }
+
+module.exports = { logger, setLogLevel}

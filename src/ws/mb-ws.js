@@ -7,7 +7,6 @@ const WebSocket = require("ws");
 const WebSocketAsPromised = require('websocket-as-promised');
 const log = require('../helpers/logging').logger();
 
-
 if (require.main === module) {
   if (process.argv.length !== 3) {
     console.error(`error Expected 1 argument, got ${process.argv.length - 2}: ${process.argv.slice(2).join(' ')}. Make sure to execute this as createCommand in a mountebank protocol.`);
@@ -27,6 +26,7 @@ if (require.main === module) {
     log.info("on connection")
     ws.on('message', function incoming(data) {
 
+
       const wsReq = {
         request: Object.assign({},
           request,
@@ -35,6 +35,7 @@ if (require.main === module) {
           }
         )
       };
+
       log.debug(JSON.stringify(wsReq))
       fetch(mbConfig.callbackURL, {
         method: 'post',
@@ -46,9 +47,9 @@ if (require.main === module) {
           if (mbResponse.proxy) {
             let request = mbResponse.request.message;
             if (request.request_id) {
-              log.info("[proxy] [%1$s] <-- %2$s ", request.request_id, JSON.stringify(request))
+              log.info("[proxy] [%1$s] <= %2$s ", request.request_id, getWSReqLog(request))
             } else {
-              log.info("[proxy] <-- %s", JSON.stringify(request))
+              log.info("[proxy] <= %s", getWSReqLog(request))
             }
 
 
@@ -83,7 +84,7 @@ if (require.main === module) {
                 })
                   .then(response => response.json())
                   .then(() => {
-                    log.info("[proxy] [%1$s] --> %2$s", response.request_id, JSON.stringify(response))
+                    log.info("[proxy] [%1$s] => %2$s", response.request_id, getWSRespLog(response))
                     ws.send(JSON.stringify(response))
                   })
               })
@@ -96,11 +97,11 @@ if (require.main === module) {
 
             if (request.request_id) {
               mbResponse.response.request_id = request.request_id
-              log.info("[%1$s] <-- %2$s", request.request_id, data)
-              log.info("[%1$s] --> %2$s", request.request_id, JSON.stringify(mbResponse.response))
+              log.info("[%1$s] <= %2$s", request.request_id, getWSReqLog(request))
+              log.info("[%1$s] => %2$s", request.request_id, getWSRespLog(mbResponse.response))
             } else {
-              log.info("<-- %s", data)
-              log.info("--> %s", JSON.stringify(mbResponse.response))
+              log.info("<= %s", getWSReqLog(request))
+              log.info("=> %s", getWSRespLog(mbResponse.response))
             }
             ws.send(JSON.stringify(mbResponse.response));
           }
@@ -111,4 +112,21 @@ if (require.main === module) {
 
     });
   });
+}
+
+
+
+const getWSReqLog = (req) => {
+  let reqLog = {
+    "ws_request": req
+  }
+
+  return JSON.stringify(reqLog)
+}
+
+const getWSRespLog = (resp) => {
+  let respLog = {
+    "ws_response": resp
+  }
+  return JSON.stringify(respLog)
 }
