@@ -1,6 +1,6 @@
 {
   "grpc": {
-    "createCommand": "mb-grpc"
+    "createCommand": "node ./bin/mb-grpc.js"
   },
   "ws": {
     "createCommand": "node ./src/ws/mb-ws.js"
