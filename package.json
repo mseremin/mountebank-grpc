@@ -4,7 +4,8 @@
   "description": "gRPC client for mountebank",
   "main": "src/index.js",
   "bin": {
-    "mb-grpc": "./bin/mb-grpc.js"
+    "mb-grpc": "./bin/mb-grpc.js",
+    "mb-ws": "./bin/mb-ws.js"
   },
   "scripts": {
     "start": "node src/index.js",
@@ -16,7 +17,9 @@
     "@grpc/proto-loader": "^0.5.5",
     "axios": "^0.21.0",
     "google-protobuf": "^3.14.0",
-    "sprintf-js": "^1.1.2"
+    "node-fetch": "^2.6.0",
+    "sprintf-js": "^1.1.2",
+    "websocket-as-promised": "^2.0.1"
   },
   "devDependencies": {
     "eslint": "^6.5.1",
