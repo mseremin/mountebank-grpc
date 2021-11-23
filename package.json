@@ -4,8 +4,7 @@
   "description": "gRPC client for mountebank",
   "main": "src/index.js",
   "bin": {
-    "mb-grpc": "./bin/mb-grpc.js",
-    "mb-ws": "./bin/mb-ws.js"
+    "mb-grpc": "./bin/mb-grpc.js"
   },
   "scripts": {
     "start": "node src/index.js",
