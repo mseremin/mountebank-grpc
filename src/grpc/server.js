@@ -97,7 +97,9 @@ const sendStreamResponse = (response, call, path) => {
         value.forEach(v => call.write(v));
     }
     
-    if (!String(path).includes("Trading") && !String(path).includes("BrokerPortfolioService/getStreamV2")) {
+    if (!String(path).includes("Trading")
+     && !String(path).includes("BrokerPortfolioService/getStreamV2")
+     && !String(path).includes("ShowcaseService/subscribeShowcase")) {
         call.end((md && md.trailing) ? metadata.mapToMetadata(md.trailing) : undefined);
     }
     
