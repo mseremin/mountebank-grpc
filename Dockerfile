@@ -1,4 +1,4 @@
-FROM node:14.15.4-slim
+FROM node:18.1.0-slim
 CMD ["node"]
 ENV MOUNTEBANK_VERSION=2.6.0
 RUN npm -g config set user root
