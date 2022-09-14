@@ -99,7 +99,7 @@ const sendStreamResponse = (response, call, path) => {
     
     if (!String(path).includes("Trading")
      && !String(path).includes("BrokerPortfolioService/getStreamV2")
-     && !String(path).includes("BookBuildingService/subscribePlaceOrders")
+     && !String(path).includes("BrokerPortfolioService/getStreamV3")
      && !String(path).includes("ShowcaseService/subscribeShowcase")) {
         call.end((md && md.trailing) ? metadata.mapToMetadata(md.trailing) : undefined);
     }
