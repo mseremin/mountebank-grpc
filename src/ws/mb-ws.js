@@ -36,7 +36,7 @@ if (require.main === module) {
         )
       };
 
-      log.debug(JSON.stringify(wsReq))
+      // log.debug(JSON.stringify(wsReq))
       fetch(mbConfig.callbackURL, {
         method: 'post',
         body: JSON.stringify(wsReq), //(1)
